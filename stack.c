@@ -36,7 +36,7 @@ void push(stack** sHead,const elemType elem)
 		(*sHead)=(stack* )malloc(sizeof(struct Stack));
 		if(!(*sHead))
 		{
-			printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+			printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 			exit(-1);
 		}
 		memset((*sHead),0,sizeof((*sHead)));
@@ -47,7 +47,7 @@ void push(stack** sHead,const elemType elem)
 	p=(stack* )malloc(sizeof(struct Stack));
 	if(!p)
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	memset(p,0,sizeof(p));
@@ -82,5 +82,6 @@ int main()
 		pop(&s,&elem);
 		printf("%d\n",*(int*)elem);
 	}
+	free(s);
 	return 0;
 }
