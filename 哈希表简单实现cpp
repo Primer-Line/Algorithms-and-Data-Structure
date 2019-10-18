@@ -16,8 +16,8 @@ typedef struct LinkedList
 	int val;
 	struct LinkedList* next;
 }linkeList;
-//hashº¯Êı hash(x)=key%LEN
-//¿ª·Å¶¨Ö··¨
+//hashå‡½æ•° hash(x)=key%LEN
+//å¼€æ”¾å®šå€æ³•
 void createHash(hash*** hashArr,int* key, int key_len,int* value)
 {
 	int i,index;
@@ -33,7 +33,7 @@ void createHash(hash*** hashArr,int* key, int key_len,int* value)
 		(*hashArr)[index]->val=value[i];
 	}
 }
-//Ö±½ÓÁ´µØÖ··¨
+//ç›´æ¥é“¾åœ°å€æ³•
 void create_Hash(hash*** hashArr,int* key, int key_len,int* value)
 {
 	int i,index;
@@ -65,7 +65,7 @@ void create_Hash(hash*** hashArr,int* key, int key_len,int* value)
 		}		
 	}
 }
-//²éÕÒkey¶ÔÓ¦µÄval ³É¹¦·µ»Ø1 Ê§°Ü·µ»Ø0
+//æŸ¥æ‰¾keyå¯¹åº”çš„val æˆåŠŸè¿”å›1 å¤±è´¥è¿”å›0
 UINT searchValue(int key,Hash** hashArr,int* val)
 {
 	int index=key%LEN;
@@ -98,7 +98,8 @@ int main()
 	struct Hash** hashArr = NULL;
 	create_Hash(&hashArr,key, key_len,value);
 	UINT status = searchValue(4,hashArr,&val);
-	if(status)printf("²éÕÒkey:4¶ÔÓ¦µÄvalue:%d\n",val);
-	else printf("²»´æÔÚ¸Ãkey¶ÔÓ¦µÄvalue\n");
+	if(status)printf("æŸ¥æ‰¾key:4å¯¹åº”çš„value:%d\n",val);
+	else printf("ä¸å­˜åœ¨è¯¥keyå¯¹åº”çš„value\n");
+	free(hashArr);
 	return 0;
 }
