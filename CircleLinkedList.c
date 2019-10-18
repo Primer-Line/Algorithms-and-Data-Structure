@@ -79,14 +79,14 @@ void addNode(doubleLinkeList** head,int data)
 void visit(struct DoubleLinkeList* head)
 {
 	doubleLinkeList* p=head,*q=head->prior;
-	printf("正序输出:\n");
+	printf("姝ｅ簭杈撳嚭:\n");
 	while(p->next!=head)
 	{
 		printf("%d ",p->data);
 		p=p->next;
 	}
 	printf("%d\n",p->data);
-	printf("逆序输出:\n");
+	printf("閫嗗簭杈撳嚭:\n");
 	while(q!=head)
 	{
 		printf("%d ",q->data);
@@ -101,15 +101,16 @@ int main()
 	struct DoubleLinkeList* s=(struct DoubleLinkeList* )malloc(sizeof(struct DoubleLinkeList));
 	for(i=0;i<10;i++)addNode(&head,i);
 	visit(head);
-	printf("插入节点:\n");
+	printf("鎻掑叆鑺傜偣:\n");
 	s->data=100;
 	insertNode(&head,s,1);
 	visit(head);
-	printf("删除节点:\n");
+	printf("鍒犻櫎鑺傜偣:\n");
 	deleteNode(&head,3);
 	visit(head);
-	printf("交换相邻节点:\n");
+	printf("浜ゆ崲鐩搁偦鑺傜偣:\n");
 	swapNode(&head,3,4);
 	visit(head);
+	free(head);
 	return 0;
 }
