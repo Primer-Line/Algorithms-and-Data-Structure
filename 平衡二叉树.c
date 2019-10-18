@@ -40,7 +40,7 @@ void createNode(Tree** node,int data)
 	*node = (struct BalanceBinaryTree* )malloc(sizeof(struct BalanceBinaryTree));
 	if(!(*node))
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	memset((*node),0,sizeof((*node)));
@@ -303,25 +303,25 @@ int main()
 	{
 		insertNode(&root,arr[i]);
 	}
-	printf("¶ş²æËÑË÷Ê÷½¨Á¢Íê±Ï:%s\n",isBalance(root)?"¶ş²æËÑË÷Ê÷ÒÑÆ½ºâ":"¶ş²æËÑË÷Ê÷²»Æ½ºâ");
-	printf("¸ù½ÚµãµÄÆ½ºâÒò×Ó:%d\n",root->bf);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("äºŒå‰æœç´¢æ ‘å»ºç«‹å®Œæ¯•:%s\n",isBalance(root)?"äºŒå‰æœç´¢æ ‘å·²å¹³è¡¡":"äºŒå‰æœç´¢æ ‘ä¸å¹³è¡¡");
+	printf("æ ¹èŠ‚ç‚¹çš„å¹³è¡¡å› å­:%d\n",root->bf);
+	printf("å‰åºéå†:\n");
 	preOrder(root);
 	printf("\n");
-	printf("ÖĞĞò±éÀú:\n");
+	printf("ä¸­åºéå†:\n");
 	order(root);
 	printf("\n");
-	//printf("É¾³ı½Úµã10:\n");
+	//printf("åˆ é™¤èŠ‚ç‚¹10:\n");
 	//deleteNode(&root,10);
-	//printf("É¾³ı½Úµã8:\n");
+	//printf("åˆ é™¤èŠ‚ç‚¹8:\n");
 	//deleteNode(&root,8);
-	printf("É¾³ı½Úµã3:%s\n",isBalance(root)?"¶ş²æËÑË÷Ê÷±£³ÖÆ½ºâ":"¶ş²æËÑË÷Ê÷²»Æ½ºâ");
-	printf("¸ù½ÚµãµÄÆ½ºâÒò×Ó:%d\n",root->bf);
+	printf("åˆ é™¤èŠ‚ç‚¹3:%s\n",isBalance(root)?"äºŒå‰æœç´¢æ ‘ä¿æŒå¹³è¡¡":"äºŒå‰æœç´¢æ ‘ä¸å¹³è¡¡");
+	printf("æ ¹èŠ‚ç‚¹çš„å¹³è¡¡å› å­:%d\n",root->bf);
 	deleteNode(&root,3);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	preOrder(root);
 	printf("\n");
-	printf("ÖĞĞò±éÀú:\n");
+	printf("ä¸­åºéå†:\n");
 	order(root);
 	printf("\n");
 	free(root);
