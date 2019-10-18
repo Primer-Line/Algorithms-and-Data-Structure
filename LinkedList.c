@@ -322,7 +322,6 @@ int main(int* arg, char* arv[])
 		visitLinkedList(head);
 		printf("%s\n",hasLoop(head)?"链表存在环":"链表不存在环");
 		free(head);
-		free(elem);
 	} else printf("创建长度为0的空链表\n");
 	return 0;
 }
