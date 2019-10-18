@@ -27,7 +27,7 @@ void initQueue(linkQueue** queue)
 	*queue=(linkQueue*)malloc(sizeof(struct LinkQueue));
 	if(!(*queue))
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	(*queue)->front=(*queue)->rear=(struct Queue* )malloc(sizeof(struct Queue));
@@ -57,7 +57,7 @@ void enQueue(linkQueue** lQueue,void* elem)
 	q=(queue* )malloc(sizeof(struct Queue));
 	if(!q)
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	q->elem = elem;
@@ -91,5 +91,6 @@ int main()
 		deQueue(&queue,&elem);
 		printf("%d\n",*(int*)elem);
 	}
+	free(queue);
 	return 0;
 }
