@@ -1,11 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-//void* ´æ´¢Êı¾İÊ±²»ÄÜÓÃÊäÈëÖµ»òÊÇÒ»¸ö¹Ì¶¨±äÁ¿ ¹²ÏíÄÚ´æ»á·¢ÉúÓ°Ïì Ö»ÓĞ²»Í¬µÄÊı¾İµØÖ·²ÅÄÜ·ÀÖ¹ÕâÖÖÇé¿ö·¢Éú
+//void* å­˜å‚¨æ•°æ®æ—¶ä¸èƒ½ç”¨è¾“å…¥å€¼æˆ–æ˜¯ä¸€ä¸ªå›ºå®šå˜é‡ å…±äº«å†…å­˜ä¼šå‘ç”Ÿå½±å“ åªæœ‰ä¸åŒçš„æ•°æ®åœ°å€æ‰èƒ½é˜²æ­¢è¿™ç§æƒ…å†µå‘ç”Ÿ
 typedef void* Element;
 typedef unsigned int UINT;
 typedef int elemType;
-//½á¹¹ÌåÄÚ²¿·¢Éú¸Ä±ä²ÅÄÜÓĞĞ§
+//ç»“æ„ä½“å†…éƒ¨å‘ç”Ÿæ”¹å˜æ‰èƒ½æœ‰æ•ˆ
 typedef struct LinkedList
 {
 	void* data;
@@ -25,7 +25,7 @@ void swapNode(List** head,UINT i,UINT j);
 void subList(List** head,UINT i,UINT j);
 void swap_node(List** head,UINT i,UINT j);
 int hasLoop(List* head);
-//º¯ÊıÖ¸Õë ±È½Ï½Úµã´óĞ¡
+//å‡½æ•°æŒ‡é’ˆ æ¯”è¾ƒèŠ‚ç‚¹å¤§å°
 int (*cmp(const void* a,const void* b))
 {
 	int* m = (int*)a,*n = (int*)b;
@@ -33,7 +33,7 @@ int (*cmp(const void* a,const void* b))
 	if(*m==*n)return 0;
 	return 1;
 }
-//Ìí¼Ó½Úµã
+//æ·»åŠ èŠ‚ç‚¹
 void addNode(List** head,void* data)
 {
 	List* p = (*head),*q;
@@ -53,7 +53,7 @@ void addNode(List** head,void* data)
 	q->next = p->next;
 	p->next = q;
 }
-//Ã°ÅİÅÅĞò
+//å†’æ³¡æ’åº
 void sortLinkedList(List** head)
 {
 	List* p=(*head),*temp;
@@ -72,7 +72,7 @@ void sortLinkedList(List** head)
 		for(j=0;j<getLinkedListLength(p)-1;j++)swap_node(&p,j,j+1);
 	}
 }
-//½ØÈ¡×ÓÁ´±í
+//æˆªå–å­é“¾è¡¨
 void subList(List** head,UINT i,UINT j)
 {
 	List* p=(*head),*q;
@@ -96,7 +96,7 @@ void subList(List** head,UINT i,UINT j)
 		p=p->next;	
 	}
 }
-//½»»»ÏàÁÚ½Úµã
+//äº¤æ¢ç›¸é‚»èŠ‚ç‚¹
 void swap_node(List** head,UINT i,UINT j)
 {
 	List*p=(*head),*start,*end,*t,*q;
@@ -127,8 +127,8 @@ void swap_node(List** head,UINT i,UINT j)
 		q->next=t;
 	}
 }
-//º¯Êıµ÷ÓÃÓë¹ı³ÌµÄÇø±ğ
-//½»»»½Úµã
+//å‡½æ•°è°ƒç”¨ä¸è¿‡ç¨‹çš„åŒºåˆ«
+//äº¤æ¢èŠ‚ç‚¹
 void swapNode(List** head,UINT i,UINT j)
 {
 	List*p=(*head),*start,*end,*t,*q,*h,*k;
@@ -171,20 +171,20 @@ void swapNode(List** head,UINT i,UINT j)
 	h->next=start;
 	q->next=h;
 }
-//»ñÈ¡Á´±í³¤¶È
+//è·å–é“¾è¡¨é•¿åº¦
 UINT getLinkedListLength(List* head)
 {
 	//(*head).next
 	return !head?0:getLinkedListLength(head->next)+1;
 }
-//±éÀúÁ´±í
+//éå†é“¾è¡¨
 void visitLinkedList(List* head)
 {
 	List* p=head;
-	//(*head) (*p)È¡ÄÚÈİ head pÖ¸ÕëÒÆ¶¯
+	//(*head) (*p)å–å†…å®¹ head pæŒ‡é’ˆç§»åŠ¨
 	void* elem;
 	int data;
-	printf("±éÀúÁ´±í:\n");
+	printf("éå†é“¾è¡¨:\n");
 	while(p!=NULL)
 	{
 		elem = p->data;
@@ -194,8 +194,8 @@ void visitLinkedList(List* head)
 	}
 	printf("\n");
 }
-//²»·ÃÎÊÄÚ´æµØÖ· ÓëÁ´±íÎŞ¹Ø Ö»Õë¶ÔÓÚÖ¸Õë²»ÄÜ·¢Éú¸Ä±ä Ö»ÓĞÄÚÈİ·¢Éú¸Ä±ä²ÅÓĞĞ§
-//·´×ªÁ´±í
+//ä¸è®¿é—®å†…å­˜åœ°å€ ä¸é“¾è¡¨æ— å…³ åªé’ˆå¯¹äºæŒ‡é’ˆä¸èƒ½å‘ç”Ÿæ”¹å˜ åªæœ‰å†…å®¹å‘ç”Ÿæ”¹å˜æ‰æœ‰æ•ˆ
+//åè½¬é“¾è¡¨
 void reverseLinkedList(List** head)
 {
 	List* node=NULL,*h;
@@ -208,7 +208,7 @@ void reverseLinkedList(List** head)
 	}
 	(*head) = node;
 }
-//ÏòÖ¸¶¨Ë÷Òı´¦²åÈëÊı¾İ
+//å‘æŒ‡å®šç´¢å¼•å¤„æ’å…¥æ•°æ®
 void insertElement(List** head,UINT index,Element data)
 {
 	List* p=(*head),*q=NULL;
@@ -216,7 +216,7 @@ void insertElement(List** head,UINT index,Element data)
 	q=(List* )malloc(sizeof(struct LinkedList));
 	if(!q)
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	memset(q,0,sizeof(q));
@@ -230,12 +230,12 @@ void insertElement(List** head,UINT index,Element data)
 	len=getLinkedListLength(*head)-1==index?index:index-1;
 	while(p!=NULL&&length++!=index-1)p=p->next;
 	q->next=p->next;
-	p->next=q;//½á¹¹ÌåÄÚ²¿·¢Éú¸Ä±ä p  =  q ½á¹¹Ìå¸³Öµ ²»Ó°Ïì º¯Êı!!!! ²»ÊÇ¹ı³Ì
+	p->next=q;//ç»“æ„ä½“å†…éƒ¨å‘ç”Ÿæ”¹å˜ p  =  q ç»“æ„ä½“èµ‹å€¼ ä¸å½±å“ å‡½æ•°!!!! ä¸æ˜¯è¿‡ç¨‹
 }
-//É¾³ıÖ¸¶¨Ë÷Òı´¦µÄÊı¾İ
+//åˆ é™¤æŒ‡å®šç´¢å¼•å¤„çš„æ•°æ®
 void deleteElement(List** head,UINT index)
 {
-	List* p=(*head);//¸¨ÖúÖ¸Õë ·¢ÉúÄÚ²¿ÖµµÄ¸Ä±ä²ÅÄÜÊ¹Ô­Ö¸Õë±ä»¯ ±¾ÖÊÖ¸ÕëÓë¸¨ÖúÖ¸ÕëµÄÇø±ğ
+	List* p=(*head);//è¾…åŠ©æŒ‡é’ˆ å‘ç”Ÿå†…éƒ¨å€¼çš„æ”¹å˜æ‰èƒ½ä½¿åŸæŒ‡é’ˆå˜åŒ– æœ¬è´¨æŒ‡é’ˆä¸è¾…åŠ©æŒ‡é’ˆçš„åŒºåˆ«
 	UINT length=0;
 	if(!index)
 	{
@@ -245,14 +245,14 @@ void deleteElement(List** head,UINT index)
 	while(p!=NULL&&length++!=index-1)p=p->next;
 	p->next=p->next->next;
 }
-//»ñÈ¡Ö¸¶¨Êı¾İËùÔÚË÷Òı´¦
+//è·å–æŒ‡å®šæ•°æ®æ‰€åœ¨ç´¢å¼•å¤„
 void getElement(List* head,UINT index,Element* data)
 {
 	List* p=head;
-	while(p!=NULL&&index--)p=p->next;//±¾ÖÊÉÏ²»ÄÜÊ¹Ô­Á´±í·¢Éú¸Ä±ä p->next->data = 1  == (*p).next->data = 1
+	while(p!=NULL&&index--)p=p->next;//æœ¬è´¨ä¸Šä¸èƒ½ä½¿åŸé“¾è¡¨å‘ç”Ÿæ”¹å˜ p->next->data = 1  == (*p).next->data = 1
 	*data = p->data;
 }
-//²éÕÒÖ¸¶¨Êı¾İÊÇ·ñ´æÔÚÓÚÁ´±íÖĞ
+//æŸ¥æ‰¾æŒ‡å®šæ•°æ®æ˜¯å¦å­˜åœ¨äºé“¾è¡¨ä¸­
 UINT findElement(List* head,Element data)
 {
 	List* p=head;
@@ -264,7 +264,7 @@ UINT findElement(List* head,Element data)
 	}
 	return p ? index : -1;
 }
-//ÅĞ¶ÏÁ´±íÊÇ·ñÓĞ»·
+//åˆ¤æ–­é“¾è¡¨æ˜¯å¦æœ‰ç¯
 int hasLoop(List* head)
 {
 	List* p=head,*q=head;
@@ -278,14 +278,14 @@ int hasLoop(List* head)
 	}
 	return 0;
 }
-//²éÕÒÖ¸¶¨Ë÷Òı´¦µÄ½ÚµãÖµ
+//æŸ¥æ‰¾æŒ‡å®šç´¢å¼•å¤„çš„èŠ‚ç‚¹å€¼
 void searchNode(List* head,UINT i,Element* elem)
 {
 	List* p=head;
 	while(p!=NULL&&!i--)p=p->next;
 	*elem = p ?  p->data : NULL;
 }
-int main(int* arg, char* arv)
+int main(int* arg, char* arv[])
 {
 	List* head=NULL;
 	void* elem;
@@ -295,32 +295,34 @@ int main(int* arg, char* arv)
 	if(head!=NULL)
 	{
 		visitLinkedList(head);
-		printf("Á´±íÅÅĞò\n");
+		printf("é“¾è¡¨æ’åº\n");
 		sortLinkedList(&head);
 		visitLinkedList(head);
-		printf("Á´±í²Ã¼ô\n");
+		printf("é“¾è¡¨è£å‰ª\n");
 		subList(&head,1,7);
 		visitLinkedList(head);
-		printf("½»»»½Úµã\n");
+		printf("äº¤æ¢èŠ‚ç‚¹\n");
 		swapNode(&head,4,5);
 		visitLinkedList(head);
-		printf("·´×ªÁ´±í\n");
+		printf("åè½¬é“¾è¡¨\n");
 		reverseLinkedList(&head);
 		visitLinkedList(head);
-		printf("²éÕÒÔªËØ\n");
+		printf("æŸ¥æ‰¾å…ƒç´ \n");
 		getElement(head,3,&elem);
 		printf("%d\n",*(int*)elem);
-		printf("²åÈëÔªËØ:\n");
-		printf("ÇëÊäÈëË÷ÒıºÍÊı¾İ(0<=Ë÷Òı<=%d):\n",getLinkedListLength(head));
+		printf("æ’å…¥å…ƒç´ :\n");
+		printf("è¯·è¾“å…¥ç´¢å¼•å’Œæ•°æ®(0<=ç´¢å¼•<=%d):\n",getLinkedListLength(head));
 		scanf("%d %d",&index,&data);
 		insertElement(&head,index,&data);
 		visitLinkedList(head);
-		printf("É¾³ıÔªËØ:\n");
-		printf("ÇëÊäÈëË÷Òı(0<=Ë÷Òı<=%d):\n",getLinkedListLength(head)-1);
+		printf("åˆ é™¤å…ƒç´ :\n");
+		printf("è¯·è¾“å…¥ç´¢å¼•(0<=ç´¢å¼•<=%d):\n",getLinkedListLength(head)-1);
 		scanf("%d",&index);
 		deleteElement(&head,index);
 		visitLinkedList(head);
-		printf("%s\n",hasLoop(head)?"Á´±í´æÔÚ»·":"Á´±í²»´æÔÚ»·");
-	} else printf("´´½¨³¤¶ÈÎª0µÄ¿ÕÁ´±í\n");
+		printf("%s\n",hasLoop(head)?"é“¾è¡¨å­˜åœ¨ç¯":"é“¾è¡¨ä¸å­˜åœ¨ç¯");
+		free(head);
+		free(elem);
+	} else printf("åˆ›å»ºé•¿åº¦ä¸º0çš„ç©ºé“¾è¡¨\n");
 	return 0;
 }
