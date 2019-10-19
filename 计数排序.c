@@ -20,6 +20,7 @@ void sort(int* arr,int n)
             while(nums[i]-->0)arr[index++]=i+min;
         }
     }
+    free(nums);
 }
 
 int main()
@@ -31,5 +32,5 @@ int main()
     {
         printf("%d ",arr[i]);
     }
-	printf("\n");
+    printf("\n");
 }
