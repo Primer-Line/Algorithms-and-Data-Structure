@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-//¹é²¢ÅÅĞò
+//å½’å¹¶æ’åº
 void merge_sort(int** arr,int* array,int left,int right);
 void mergeSort(int** arr,int* array,int left,int right)
 { 
@@ -31,19 +31,20 @@ int main()
 	int arr[]={5,1,10,3,8,9,2,4,0,6,7},n=sizeof(arr)/sizeof(int),i;
 	int* array=(int* )malloc(n*sizeof(int));
 	int* temp=&arr[0];
-	printf("¹é²¢ÅÅĞò\n");
-	printf("Ô­Ê¼Êı×é:\n");
+	printf("å½’å¹¶æ’åº\n");
+	printf("åŸå§‹æ•°ç»„:\n");
 	for(i=0;i<n;i++)
 	{
 		printf("%d ",temp[i]);
 	}
 	printf("\n");
 	mergeSort(&temp,array,0,n-1);
-	printf("ÏÖÊı×é:\n");
+	printf("ç°æ•°ç»„:\n");
 	for(i=0;i<n;i++)
 	{
 		printf("%d ",temp[i]);
 	}
 	printf("\n");
+	free(array);
 	return 0;
 }
