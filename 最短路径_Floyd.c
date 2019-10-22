@@ -1,28 +1,29 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#define MAX_LEN 100//×î´ó¶¥µãÊı
-#define MAX_VALUE (2<<30)-1//×î´óÖµ
+#define MAX_LEN 100//æœ€å¤§é¡¶ç‚¹æ•°
+#define MAX_VALUE (2<<30)-1//æœ€å¤§å€¼
 typedef void* elemType;
 typedef int dataType;
 typedef unsigned int UINT;
 #ifdef MAX_LEN
-//ÁÚ½Ó¾ØÕó
+//é‚»æ¥çŸ©é˜µ
 typedef struct Matrix
 {
 	dataType weight;
 }matrix;
-//×î¶ÌÂ·¾¶FloydËã·¨
+//æœ€çŸ­è·¯å¾„Floydç®—æ³•
 void shortestPath_Floyd(dataType arc[][3],UINT n,char* adjvex,UINT adjvex_num)
 {
 	UINT i,j,k;
-	matrix m[MAX_LEN][MAX_LEN];//¶¨ÒåÁÚ½Ó¾ØÕó
+	matrix m[MAX_LEN][MAX_LEN];//å®šä¹‰é‚»æ¥çŸ©é˜µ
+	dataType** data = (dataType**)malloc(sizeof(dataType*)*adjvex_num);//å­˜å‚¨æƒå€¼
+	if(!data)exit(-1);
 	for(i=0;i<adjvex_num;i++)
 	{
-		for(j=0;j<adjvex_num;j++)m[i][j].weight = MAX_VALUE;//³õÊ¼»¯È¨ÖµÎª×î´óÖµ
+		for(j=0;j<adjvex_num;j++)m[i][j].weight = MAX_VALUE;//åˆå§‹åŒ–æƒå€¼ä¸ºæœ€å¤§å€¼
 	}
-	dataType** data = (dataType**)malloc(sizeof(dataType*)*adjvex_num);
-	for(i=0;i<n;i++)//½¨Á¢ÁÚ½Ó¾ØÕó
+	for(i=0;i<n;i++)//å»ºç«‹é‚»æ¥çŸ©é˜µ
 	{
 		m[arc[i][0]][arc[i][0]].weight = 0;
 		m[arc[i][1]][arc[i][1]].weight = 0;
@@ -32,14 +33,15 @@ void shortestPath_Floyd(dataType arc[][3],UINT n,char* adjvex,UINT adjvex_num)
 	for(i=0;i<adjvex_num;i++)
 	{
 		data[i] = (dataType*)malloc(sizeof(dataType)*adjvex_num);
-		for(j=0;j<adjvex_num;j++)data[i][j] = m[i][j].weight;//³õÊ¼»¯½á¹û¼¯
+		if(!data[i])exit(-1);
+		for(j=0;j<adjvex_num;j++)data[i][j] = m[i][j].weight;//åˆå§‹åŒ–ç»“æœé›†
 	}
-	//o(n3)Ëã·¨ÊµÏÖ
+	//o(n3)ç®—æ³•å®ç°
 	for(i=0;i<adjvex_num;i++)
 	{
 		for(j=0;j<adjvex_num;j++)
 		{
-			for(k = 0;k<adjvex_num;k++)//ÖĞ×ª½Úµã Ö»Ğè±È½Ïdata[i][j]Óëdata[i][k]+data[k][j]µÄ´óĞ¡½øĞĞÈ¡Öµ
+			for(k = 0;k<adjvex_num;k++)//ä¸­è½¬èŠ‚ç‚¹ åªéœ€æ¯”è¾ƒdata[i][j]ä¸data[i][k]+data[k][j]çš„å¤§å°è¿›è¡Œå–å€¼
 			{
 				if(data[i][k]!=MAX_VALUE&&data[k][j]!=MAX_VALUE)data[i][j] = data[i][j] < data[i][k]+data[k][j] ? data[i][j] : data[i][k]+data[k][j];
 			}
@@ -49,10 +51,10 @@ void shortestPath_Floyd(dataType arc[][3],UINT n,char* adjvex,UINT adjvex_num)
 	{
 		for(j=0;j<adjvex_num;j++)
 		{
-			printf("%c->%c %d\n",adjvex[i],adjvex[j],data[i][j]);//Êä³öÂ·¾¶ºÍÈ¨Öµ
+			printf("%c->%c %d\n",adjvex[i],adjvex[j],data[i][j]);//è¾“å‡ºè·¯å¾„å’Œæƒå€¼
 		}
 	}
-	//ÊÍ·ÅÖ¸Õë
+	//é‡Šæ”¾æŒ‡é’ˆ
 	for(i=0;i<adjvex_num;i++)
 	{
 		free(data[i]);
