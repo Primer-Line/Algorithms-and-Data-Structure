@@ -2,29 +2,30 @@
 #include<stdlib.h>
 #include<string.h>
 typedef int dataType;
+typedef unsigned int UINT;
 /*
-ºìºÚÊ÷
-1.ºìºÚÊ÷µÄ²åÈëËã·¨ÊµÏÖ
-2.ºìºÚÊ÷µÄÉ¾³ıËã·¨ÊµÏÖ
-3.Ïú»ÙºìºÚÊ÷
+çº¢é»‘æ ‘
+1.çº¢é»‘æ ‘çš„æ’å…¥ç®—æ³•å®ç°
+2.çº¢é»‘æ ‘çš„åˆ é™¤ç®—æ³•å®ç°
+3.é”€æ¯çº¢é»‘æ ‘
 */
-//Ã¶¾Ù¶¨ÒåºìºÚÊ÷½ÚµãÑÕÉ«
-enum COLOR
+//æšä¸¾å®šä¹‰çº¢é»‘æ ‘èŠ‚ç‚¹é¢œè‰²
+typedef enum COLOR
 {
 	RED=0,
 	BLACK=1
-};
-//ºìºÚÊ÷µÄÁ´Ê½´æ´¢ÊµÏÖ
+}Color;
+//çº¢é»‘æ ‘çš„é“¾å¼å­˜å‚¨å®ç°
 typedef struct RedBlackTree
 {
-	int val;//¼üÖµ
-	int color;//ÑÕÉ«
-	struct RedBlackTree* left;//×ó½ÚµãÖ¸Õë
-	struct RedBlackTree* right;//ÓÒ½ÚµãÖ¸Õë
-	struct RedBlackTree* parent;//¸¸½ÚµãÖ¸Õë
+	dataType val;//é”®å€¼
+	Color color;//é¢œè‰²
+	struct RedBlackTree* left;//å·¦èŠ‚ç‚¹æŒ‡é’ˆ
+	struct RedBlackTree* right;//å³èŠ‚ç‚¹æŒ‡é’ˆ
+	struct RedBlackTree* parent;//çˆ¶èŠ‚ç‚¹æŒ‡é’ˆ
 }Tree;
-//´´½¨½ÚµãÖ¸Õë
-void createNode(struct RedBlackTree** node,int val)
+//åˆ›å»ºèŠ‚ç‚¹æŒ‡é’ˆ
+void createNode(struct RedBlackTree** node,dataType val)
 {
 	*node=(struct RedBlackTree* )malloc(sizeof(struct RedBlackTree));
 	if(!(*node))exit(-1);
@@ -35,7 +36,7 @@ void createNode(struct RedBlackTree** node,int val)
 	(*node)->val=val;
 	(*node)->color=RED;
 }
-//×óĞı×ª
+//å·¦æ—‹è½¬
 void leftRotation(Tree** root)
 {
 	Tree* p=(*root)->right;
@@ -45,7 +46,7 @@ void leftRotation(Tree** root)
 	(*root)->parent=p;
 	(*root)=p;
 }
-//ÓÒĞı×ª
+//å³æ—‹è½¬
 void rightRotation(Tree** root)
 {
 	Tree* p=(*root)->left;
@@ -55,7 +56,7 @@ void rightRotation(Tree** root)
 	(*root)->parent=p;
 	(*root)=p;
 }
-//µ÷ÕûÊ÷½Úµã£¬Ê¹µÃÊ÷Ê¼ÖÕ±£³ÖºìºÚÊ÷µÄĞÔÖÊ
+//è°ƒæ•´æ ‘èŠ‚ç‚¹ï¼Œä½¿å¾—æ ‘å§‹ç»ˆä¿æŒçº¢é»‘æ ‘çš„æ€§è´¨
 void adjustTree(Tree** root,Tree** node)
 {
 	Tree* h=(*node),*parent=NULL,*q=NULL;
@@ -120,8 +121,8 @@ void adjustTree(Tree** root,Tree** node)
 		h=parent;
 	}
 }
-//ºìºÚÊ÷µÄ½Úµã²åÈëËã·¨
-void insertNode(Tree** root,int val)
+//çº¢é»‘æ ‘çš„èŠ‚ç‚¹æ’å…¥ç®—æ³•
+void insertNode(Tree** root,dataType val)
 {
 	Tree* node=(*root),*p=NULL,*q,*top=NULL,*h=NULL,*parent=NULL,*pre=NULL;
 	int k;
@@ -134,6 +135,7 @@ void insertNode(Tree** root,int val)
 	}
 	while(node)
 	{
+		if(node->val==val)exit(0);
 		q=node;
 		node=val<node->val?node->left:node->right;
 	}
@@ -207,8 +209,8 @@ void insertNode(Tree** root,int val)
 		}
 	}
 }
-//²éÕÒÖ¸¶¨¼üÖµµÄ½Úµã
-void searchNode(Tree* root,Tree** node,int val)
+//æŸ¥æ‰¾æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
+void searchNode(Tree* root,Tree** node,dataType val)
 {
 	Tree* p=root;
 	while(p&&p->val!=val)
@@ -217,15 +219,15 @@ void searchNode(Tree* root,Tree** node,int val)
 	}
 	(*node) = p;
 }
-//»ñÈ¡¼üÖµ×îĞ¡µÄ½Úµã
+//è·å–é”®å€¼æœ€å°çš„èŠ‚ç‚¹
 void getMinNode(Tree* root,Tree** node)
 {
 	Tree* p=root;
 	while(p->left)p=p->left;
 	(*node) = p;
 }
-//×óµ÷Õû
-int leftAdjust(Tree** root)
+//å·¦è°ƒæ•´
+UINT leftAdjust(Tree** root)
 {
 	int temp;
 	if((*root)->right->right&&!(*root)->right->right->color)
@@ -261,8 +263,8 @@ int leftAdjust(Tree** root)
 	}
 	return 0;
 }
-//ÓÒµ÷Õû
-int rightAdjust(Tree** root)
+//å³è°ƒæ•´
+UINT rightAdjust(Tree** root)
 {
 	int temp;
 	if((*root)->left->left&&!(*root)->left->left->color)
@@ -299,7 +301,7 @@ int rightAdjust(Tree** root)
 	return 0;
 }
 /*
-Ğı×ªÖ¸¶¨½Úµãºó£¬·µ»ØµÄ½ÚµãÒÑÌæ»»ÖÁÆäËû½Úµã£¬ĞèÒª½«µ±Ç°½Úµã¸üĞÂ¸¸½Úµã 
+æ—‹è½¬æŒ‡å®šèŠ‚ç‚¹åï¼Œè¿”å›çš„èŠ‚ç‚¹å·²æ›¿æ¢è‡³å…¶ä»–èŠ‚ç‚¹ï¼Œéœ€è¦å°†å½“å‰èŠ‚ç‚¹æ›´æ–°çˆ¶èŠ‚ç‚¹ 
 &parent->left or &parent->right;current->parent=parent->left:right;
  */
 void adjustNode(Tree** root,Tree* treeNode)
@@ -353,7 +355,7 @@ void adjustNode(Tree** root,Tree* treeNode)
 			{
 				p->left->color=BLACK;
 				p->color=RED;
-				//·ÖÖ§q->leftÒÑ¾­¸Ä±ä,q->left->parentÊÇÔ­À´µÄÖµ,ĞèÒªÖØĞÂ¸üĞÂÎª:q->left->parent=q;
+				//åˆ†æ”¯q->leftå·²ç»æ”¹å˜,q->left->parentæ˜¯åŸæ¥çš„å€¼,éœ€è¦é‡æ–°æ›´æ–°ä¸º:q->left->parent=q;
 				rightRotation(k==-1?&(*root):(!k?&(q->left):&(q->right)));
 				if(!k)q->left->parent=q;
 				else if(k==1)q->right->parent=q;
@@ -368,8 +370,8 @@ void adjustNode(Tree** root,Tree* treeNode)
 		node=p;
 	}	
 }
-//É¾³ıËã·¨ÊµÏÖ
-void deleteNode(Tree** root,int val)
+//åˆ é™¤ç®—æ³•å®ç°
+void deleteNode(Tree** root,dataType val)
 {
 	Tree* node=NULL,*p=NULL;
 	int temp;
@@ -422,7 +424,7 @@ void deleteNode(Tree** root,int val)
 		node->val=temp;
 		if(p->right)
 		{
-			//pÒ»¶¨ÊÇºÚÉ«½Úµã
+			//pä¸€å®šæ˜¯é»‘è‰²èŠ‚ç‚¹
 			p->right->color=BLACK;
 			if(p==p->parent->left)p->parent->left=p->right;
 			else p->parent->right=p->right;
@@ -430,14 +432,14 @@ void deleteNode(Tree** root,int val)
 		}
 		else
 		{
-			//¿ÉÄÜÊÇºÚÉ«½Úµã£¬Ò²¿ÉÄÜÊÇºìÉ«½Úµã
+			//å¯èƒ½æ˜¯é»‘è‰²èŠ‚ç‚¹ï¼Œä¹Ÿå¯èƒ½æ˜¯çº¢è‰²èŠ‚ç‚¹
 			if(p->color)adjustNode(&(*root),p);
 			if(p==p->parent->left)p->parent->left=NULL;
 			else p->parent->right=NULL;
 		}
 	}
 }
-//Ç°Ğò±éÀú
+//å‰åºéå†
 void pre_Order(Tree* root)
 {
 	if(!root)return;
@@ -449,12 +451,12 @@ void pre_Order(Tree* root)
 void preOrder(Tree* root)
 {
 	if(!root)return;
-	printf("%s ",!root->color?"ºì":"ºÚ");
+	printf("%s ",!root->color?"çº¢":"é»‘");
 	preOrder(root->left);
 	preOrder(root->right);
 
 }
-//Ïú»ÙºìºÚÊ÷
+//é”€æ¯çº¢é»‘æ ‘
 void destoryTree(Tree** root)
 {
 	if(*root)
@@ -470,10 +472,10 @@ void destoryTree(Tree** root)
 int main()
 {
 	//int arr[]={0,1,2,3,4,5,6,7,8,9,10,11,12};
-	int arr[]={6,9,1,0,3,4,12,2,7,11,10,5,8};
-	int len=sizeof(arr)/sizeof(int),i=0;
+	dataType arr[]={6,9,1,0,3,4,12,2,7,11,10,5,8};
+	UINT len=sizeof(arr)/sizeof(int),i=0;
 	struct RedBlackTree* root=NULL;
-	printf("³õÊ¼»¯ĞòÁĞ¹¹ÔìºìºÚÊ÷:\n");
+	printf("åˆå§‹åŒ–åºåˆ—æ„é€ çº¢é»‘æ ‘:\n");
 	for(;i<len;i++)
 	{
 		insertNode(&root,arr[i]);
@@ -483,27 +485,27 @@ int main()
 		printf("%d ",arr[i]);
 	}
 	printf("\n");
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	pre_Order(root);
 	printf("\n");
-	printf("É¾³ı½Úµã:2\n");
+	printf("åˆ é™¤èŠ‚ç‚¹:2\n");
 	deleteNode(&root,2);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	pre_Order(root);
 	printf("\n");
-	printf("É¾³ı½Úµã:0\n");
+	printf("åˆ é™¤èŠ‚ç‚¹:0\n");
 	deleteNode(&root,0);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	pre_Order(root);
 	printf("\n");
-	printf("É¾³ı½Úµã:5\n");
+	printf("åˆ é™¤èŠ‚ç‚¹:5\n");
 	deleteNode(&root,5);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	pre_Order(root);
 	printf("\n");
-	printf("É¾³ı½Úµã:1\n");
+	printf("åˆ é™¤èŠ‚ç‚¹:1\n");
 	deleteNode(&root,1);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("å‰åºéå†:\n");
 	pre_Order(root);
 	printf("\n");
 	/*
