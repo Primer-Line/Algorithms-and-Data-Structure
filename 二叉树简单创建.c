@@ -4,15 +4,15 @@
 #include<limits.h>
 #include<string.h>
 #include<stdlib.h>
-const int MAX_LEN = 100;//³õÊ¼»¯¶ÓÁĞ¡¢Õ»µÄ×î´ó³¤¶È
-//Ã¶¾Ù¶¨Òå·µ»Ø×´Ì¬ÀàĞÍ
+const int MAX_LEN = 100;//åˆå§‹åŒ–é˜Ÿåˆ—ã€æ ˆçš„æœ€å¤§é•¿åº¦
+//æšä¸¾å®šä¹‰è¿”å›çŠ¶æ€ç±»å‹
 enum TYPE
 {
     TRUE=1,
     FALSE=0,
     ERROR=-1
 };
-//¶ş²æÊ÷µÄ´æ´¢½á¹¹
+//äºŒå‰æ ‘çš„å­˜å‚¨ç»“æ„
 typedef struct
 {
     int val;
@@ -21,50 +21,50 @@ typedef struct
 } BinaryTree,*TreeNode;
 typedef BinaryTree* Tree;
 typedef BinaryTree DataType;
-//ÏßĞÔÕ»µÄ´æ´¢½á¹¹
+//çº¿æ€§æ ˆçš„å­˜å‚¨ç»“æ„
 struct Stack
 {
     int top;
     DataType** arr;
 };
 typedef struct Stack stack;
-//³õÊ¼»¯ÏßĞÔÕ»
+//åˆå§‹åŒ–çº¿æ€§æ ˆ
 void initStack(stack** s)
 {
     *s=(stack*)malloc(sizeof(stack));
     if(!(*s))
     {
-        printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+        printf("å†…å­˜åˆ†é…å¤±è´¥\n");
         exit(-1);
     }
     (*s)->top=-1;
     (*s)->arr=(DataType** )malloc(MAX_LEN*sizeof(DataType*));
 }
-//ÏßĞÔ¶ÓÁĞµÄ´æ´¢½á¹¹
+//çº¿æ€§é˜Ÿåˆ—çš„å­˜å‚¨ç»“æ„
 typedef struct Queue
 {
     int front;
     int rear;
     DataType** arr;
 } queue;
-//³õÊ¼»¯ÏßĞÔ¶ÓÁĞ
+//åˆå§‹åŒ–çº¿æ€§é˜Ÿåˆ—
 void initQueue(queue** q)
 {
     (*q)=(queue*)malloc(sizeof(queue));
     (*q)->front = (*q)->rear = -1;
     (*q)->arr=(DataType** )malloc(MAX_LEN*sizeof(DataType* ));
 }
-//ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎªÂú
+//åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºæ»¡
 int queueFull(queue* q)
 {
     return (q->rear + 1)%MAX_LEN==q->front;
 }
-//ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ
+//åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º
 int queueEmpty(queue* q)
 {
     return q->rear==q->front&&q->rear==-1;
 }
-//ÔªËØÈë¶Ó
+//å…ƒç´ å…¥é˜Ÿ
 void enQueue(queue** q,DataType* dataType)
 {
     if(queueFull((*q)))
@@ -72,13 +72,10 @@ void enQueue(queue** q,DataType* dataType)
         printf("Queue Full\n");
         return;
     }
-    if((*q)->front==-1)
-    {
-        (*q)->front=0;
-    }
+    if((*q)->front==-1)(*q)->front=0;
     (*q)->arr[++((*q)->rear)]=dataType;
 }
-//ÔªËØ³ö¶Ó
+//å…ƒç´ å‡ºé˜Ÿ
 void deQueue(queue** q,DataType** dataType)
 {
     if(queueEmpty(*q))
@@ -86,29 +83,22 @@ void deQueue(queue** q,DataType** dataType)
         printf("Queue Empty\n");
         return;
     }
-
     *dataType=(*q)->arr[((*q)->front)++];
-    if((*q)->rear<(*q)->front)
-    {
-        (*q)->front=(*q)->rear=-1;
-    }
+    if((*q)->rear<(*q)->front)(*q)->front=(*q)->rear=-1;
 }
-//ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
+//åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º
 int stackEmpty(stack* s)
 {
     return s->top==-1;
 }
-//È¡Õ»¶¥ÔªËØ
+//å–æ ˆé¡¶å…ƒç´ 
 int getFront(stack** s,DataType** dataType)
 {
-    if((*s)->top==-1)
-    {
-        return FALSE;
-    }
+    if((*s)->top==-1)return FALSE;
     *dataType=(*s)->arr[((*s)->top)];
     return TRUE;
 }
-//½«ÔªËØÑ¹ÈëÕ»µ×
+//å°†å…ƒç´ å‹å…¥æ ˆåº•
 void push(stack** s,DataType* dataType)
 {
     if((*s)->top==MAX_LEN)
@@ -118,7 +108,7 @@ void push(stack** s,DataType* dataType)
     }
     (*s)->arr[++((*s)->top)]=dataType;
 }
-//½«ÔªËØµ¯³ö
+//å°†å…ƒç´ å¼¹å‡º
 void pop(stack** s,DataType** dataType)
 {
     if((*s)->top==-1)
@@ -128,7 +118,7 @@ void pop(stack** s,DataType** dataType)
     }
     *dataType=(*s)->arr[((*s)->top)--];
 }
-//´´½¨¶ş²æÊ÷
+//åˆ›å»ºäºŒå‰æ ‘
 void createTree(Tree* root)
 {
     int val;
@@ -144,7 +134,7 @@ void createTree(Tree* root)
     createTree(&((*root)->left));
     createTree(&((*root)->right));
 }
-//µİ¹éÇ°Ğò±éÀú
+//é€’å½’å‰åºéå†
 void preOrder(Tree root)
 {
     if(!root)return;
@@ -152,7 +142,7 @@ void preOrder(Tree root)
     preOrder(root->left);
     preOrder(root->right);
 }
-//·Çµİ¹éÇ°Ğò±éÀú
+//éé€’å½’å‰åºéå†
 void pre_order(Tree root)
 {
     stack* s=NULL;
@@ -164,17 +154,11 @@ void pre_order(Tree root)
     {
         pop(&s,&node);
         printf("%d ",node->val);
-        if(node->right)
-        {
-            push(&s,node->right);
-        }
-        if(node->left)
-        {
-            push(&s,node->left);
-        }
+        if(node->right)push(&s,node->right);
+        if(node->left)push(&s,node->left);
     }
 }
-//¶ÓÁĞÊµÏÖ²ã´Î±éÀú
+//é˜Ÿåˆ—å®ç°å±‚æ¬¡éå†
 void levelOrder(Tree root)
 {
     Tree node=NULL;
@@ -186,18 +170,12 @@ void levelOrder(Tree root)
     {
         deQueue(&q,&node);
         printf("%d ",node->val);
-        if(node->left)
-        {
-            enQueue(&q,node->left);
-        }
-        if(node->right)
-        {
-            enQueue(&q,node->right);
-        }
+        if(node->left)enQueue(&q,node->left);
+        if(node->right) enQueue(&q,node->right);
     }
 	printf("\n");
 }
-//Ïú»Ù¶ş²æÊ÷
+//é”€æ¯äºŒå‰æ ‘
 void destoryTree(Tree* root)
 {
 	Tree left,right;
@@ -213,11 +191,11 @@ int main()
 {
     Tree root;
     createTree(&root);
-    printf("µİ¹éÇ°Ğò±éÀú\n");
+    printf("é€’å½’å‰åºéå†\n");
     preOrder(root);
-    printf("\n·Çµİ¹éÇ°Ğò±éÀú\n");
+    printf("\néé€’å½’å‰åºéå†\n");
     pre_order(root);
-    printf("\n¹ã¶ÈÓÅÏÈ±éÀú\n");
+    printf("\nå¹¿åº¦ä¼˜å…ˆéå†\n");
     levelOrder(root);
     free(root);
     return 0;
