@@ -213,10 +213,7 @@ void insertNode(Tree** root,dataType val)
 void searchNode(Tree* root,Tree** node,dataType val)
 {
 	Tree* p=root;
-	while(p&&p->val!=val)
-	{
-		p=p->val>val?p->left:p->right;
-	}
+	while(p&&p->val!=val)p=p->val>val?p->left:p->right;
 	(*node) = p;
 }
 //获取键值最小的节点
@@ -476,14 +473,8 @@ int main()
 	UINT len=sizeof(arr)/sizeof(int),i=0;
 	struct RedBlackTree* root=NULL;
 	printf("初始化序列构造红黑树:\n");
-	for(;i<len;i++)
-	{
-		insertNode(&root,arr[i]);
-	}
-	for(i=0;i<len;i++)
-	{
-		printf("%d ",arr[i]);
-	}
+	for(;i<len;i++)insertNode(&root,arr[i]);
+	for(i=0;i<len;i++)printf("%d ",arr[i]);
 	printf("\n");
 	printf("前序遍历:\n");
 	pre_Order(root);
