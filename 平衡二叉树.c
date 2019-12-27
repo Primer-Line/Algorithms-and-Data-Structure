@@ -2,10 +2,10 @@
 #include<stdlib.h>
 #include<string.h>
 /*
-Æ½ºâ¶ş²æÊ÷µÄÁ´Ê½´æ´¢ÊµÏÖ
-1.¶ş²æËÑË÷Ê÷µÄ½Úµã²åÈëÓëÆ½ºâ´¦Àí
-2.¶ş²æËÑË÷Ê÷µÄ½ÚµãÉ¾³ıÓëÆ½ºâ´¦Àí
-3.Ïú»ÙÆ½ºâ¶ş²æÊ÷
+å¹³è¡¡äºŒå‰æ ‘çš„é“¾å¼å­˜å‚¨å®ç°
+1.äºŒå‰æœç´¢æ ‘çš„èŠ‚ç‚¹æ’å…¥ä¸å¹³è¡¡å¤„ç†
+2.äºŒå‰æœç´¢æ ‘çš„èŠ‚ç‚¹åˆ é™¤ä¸å¹³è¡¡å¤„ç†
+3.é”€æ¯å¹³è¡¡äºŒå‰æ ‘
 */
 #define FALSE 0
 #define TRUE 1
@@ -17,21 +17,21 @@ enum STATUS
 	b = -1,
 	c = 1
 };
-//ÁªºÏ
+//è”åˆ
 union BinaryTree{
 	int val;
 	union BinaryTree* parent;
 	union BinaryTree* left;
 	union BinaryTree* right;
 }binaryTree;
-//Æ½ºâ¶ş²æÊ÷µÄ´æ´¢½á¹¹
+//å¹³è¡¡äºŒå‰æ ‘çš„å­˜å‚¨ç»“æ„
 typedef struct BalanceBinaryTree
 {
-	int val;//¼üÖµ
-	int bf;//Æ½ºâÒò×Ó
-	struct BalanceBinaryTree* parent;//¸¸½ÚµãÖ¸Õë
-	struct BalanceBinaryTree* left;//×óº¢×ÓÖ¸Õë
-	struct BalanceBinaryTree* right;//ÓÒº¢×ÓÖ¸Õë
+	int val;//é”®å€¼
+	int bf;//å¹³è¡¡å› å­
+	struct BalanceBinaryTree* parent;//çˆ¶èŠ‚ç‚¹æŒ‡é’ˆ
+	struct BalanceBinaryTree* left;//å·¦å­©å­æŒ‡é’ˆ
+	struct BalanceBinaryTree* right;//å³å­©å­æŒ‡é’ˆ
 }Tree;
 int getHeight(Tree* root);
 void createNode(Tree** node,int data);
@@ -44,47 +44,41 @@ void deleteNode(Tree** root,int val);
 void preOrder(Tree* root);
 void order(Tree* root);
 void destoryTree(Tree** root);
-//´´½¨Ê÷½ÚµãÖ¸Õë
+//åˆ›å»ºæ ‘èŠ‚ç‚¹æŒ‡é’ˆ
 void createNode(Tree** node,int data)
 {
-	//ÄÚ´æ·ÖÅä
+	//å†…å­˜åˆ†é…
 	*node = (struct BalanceBinaryTree* )malloc(sizeof(struct BalanceBinaryTree));
 	if(!(*node))
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	memset((*node),0,sizeof((*node)));
 	(*node)->val = data;
 }
-//×óĞı
+//å·¦æ—‹
 void leftRotation(Tree** root)
 {
 	Tree* node=(*root)->right;
 	(*root)->right=node->left;
-	if(node->left)
-	{
-		node->left->parent=(*root);
-	}
-	//¸üĞÂ¸ù½Úµã
+	if(node->left)node->left->parent=(*root);
+	//æ›´æ–°æ ¹èŠ‚ç‚¹
 	node->left=(*root);
 	(*root)->parent=node;
 	(*root)=node;
 }
-//ÓÒĞı
+//å³æ—‹
 void rightRotation(Tree** root)
 {
 	Tree* node=(*root)->left;
 	(*root)->left=node->right;
-	if(node->right)
-	{
-		node->right->parent=*root;
-	}
+	if(node->right)node->right->parent=*root;
 	node->right=(*root);
 	(*root)->parent=node;
 	(*root)=node;
 }
-//¼ÆËãÆ½ºâÒò×Ó
+//è®¡ç®—å¹³è¡¡å› å­
 int getBF(Tree* root)
 {
 	int left,right;
@@ -92,14 +86,14 @@ int getBF(Tree* root)
 	right=getHeight(root->right);
 	return left-right;
 }
-//²éÕÒÖ¸¶¨¼üÖµµÄ½Úµã
+//æŸ¥æ‰¾æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
 void searchNode(Tree* root,Tree** p,int val)
 {
 	Tree* node=root;
 	while(node&&node->val!=val)node=node->val>val?node->left:node->right;
 	(*p) = node;
 }
-//²éÕÒ×îµÍ²»Æ½ºâ½Úµã²¢»Ö¸´Æ½ºâ
+//æŸ¥æ‰¾æœ€ä½ä¸å¹³è¡¡èŠ‚ç‚¹å¹¶æ¢å¤å¹³è¡¡
 void splitNode(Tree** root,Tree* p)
 {
 	Tree *q=NULL;
@@ -123,7 +117,7 @@ void splitNode(Tree** root,Tree* p)
 		}
 	}
 }
-//×óĞı¡¢ÓÒĞı¡¢Ë«Ğı»Ö¸´Æ½ºâ
+//å·¦æ—‹ã€å³æ—‹ã€åŒæ—‹æ¢å¤å¹³è¡¡
 void recoverBalance(Tree** root)
 {
 	if((*root)->bf<-1)
@@ -148,14 +142,14 @@ void recoverBalance(Tree** root)
 	}
 	(*root)->bf=getBF((*root));
 }
-//²éÕÒ¼üÖµ×îĞ¡µÄ½Úµã
+//æŸ¥æ‰¾é”®å€¼æœ€å°çš„èŠ‚ç‚¹
 void getMinNode(Tree* root,Tree** node)
 {
 	Tree* p=root;
 	while(p->left)p=p->left;
 	(*node) = p;
 }
-//»Ö¸´Æ½ºâ
+//æ¢å¤å¹³è¡¡
 void setBalance(Tree** root,Tree* node)
 {
 	if((*root)->bf>1)
@@ -180,7 +174,7 @@ void setBalance(Tree** root,Tree* node)
 	}
 	(*root)->bf=getBF(*root);
 }
-//É¾³ı½Úµã²¢»Ö¸´Æ½ºâ
+//åˆ é™¤èŠ‚ç‚¹å¹¶æ¢å¤å¹³è¡¡
 void deleteNode(Tree** root,int val)
 {
 	Tree* node=NULL,*p = NULL;
@@ -233,7 +227,7 @@ void deleteNode(Tree** root,int val)
 		splitNode(&(*root),p->parent);	
 	}
 }
-//²åÈë½Úµã²¢»Ö¸´Æ½ºâ
+//æ’å…¥èŠ‚ç‚¹å¹¶æ¢å¤å¹³è¡¡
 void insertNode(Tree** root,int val)
 {
 	struct BalanceBinaryTree* node=NULL,*p=(*root),*q=NULL,*h=NULL,*parent=NULL;
@@ -279,7 +273,7 @@ void insertNode(Tree** root,int val)
 		}
 	}
 }
-//Ç°Ğò±éÀú
+//å‰åºéå†
 void preOrder(Tree* root)
 {
 	if(!root)return;
@@ -288,7 +282,7 @@ void preOrder(Tree* root)
 	preOrder(root->right);
 
 }
-//ÖĞĞò±éÀú
+//ä¸­åºéå†
 void order(Tree* root)
 {
 	if(!root)return;
@@ -297,7 +291,7 @@ void order(Tree* root)
 	order(root->right);
 
 }
-//»ñÈ¡Ê÷¸ß
+//è·å–æ ‘é«˜
 int getHeight(Tree* root)
 {
 	int left,right;
@@ -307,7 +301,7 @@ int getHeight(Tree* root)
 	return left>right?left+1:right+1;
 
 }
-//ÅĞ¶Ï¶ş²æËÑË÷Ê÷ÊÇ·ñÆ½ºâ
+//åˆ¤æ–­äºŒå‰æœç´¢æ ‘æ˜¯å¦å¹³è¡¡
 int isBalance(Tree* root)
 {
 	int left,right;
@@ -317,7 +311,7 @@ int isBalance(Tree* root)
 	if(left-right>1||left-right<-1)return 0;
 	return isBalance(root->left)&&isBalance(root->right);
 }
-//Ïú»ÙÆ½ºâ¶ş²æÊ÷
+//é”€æ¯å¹³è¡¡äºŒå‰æ ‘
 void destoryTree(Tree** root)
 {
 	Tree* left = NULL,*right = NULL;
@@ -336,29 +330,26 @@ int main()
 	//int arr[]={12,4,1,7,8,10,9,2,11,6,5};
 	int i,len=sizeof(arr)/sizeof(int);
 	Tree* root=NULL;
-	for(i=0;i<len;i++)
-	{
-		insertNode(&root,arr[i]);
-	}
-	printf("¶ş²æËÑË÷Ê÷½¨Á¢Íê±Ï:%s\n",isBalance(root)?"¶ş²æËÑË÷Ê÷ÒÑÆ½ºâ":"¶ş²æËÑË÷Ê÷²»Æ½ºâ");
-	printf("¸ù½ÚµãµÄÆ½ºâÒò×Ó:%d\n",root->bf);
-	printf("Ç°Ğò±éÀú:\n");
+	for(i=0;i<len;i++)insertNode(&root,arr[i]);
+	printf("äºŒå‰æœç´¢æ ‘å»ºç«‹å®Œæ¯•:%s\n",isBalance(root)?"äºŒå‰æœç´¢æ ‘å·²å¹³è¡¡":"äºŒå‰æœç´¢æ ‘ä¸å¹³è¡¡");
+	printf("æ ¹èŠ‚ç‚¹çš„å¹³è¡¡å› å­:%d\n",root->bf);
+	printf("å‰åºéå†:\n");
 	preOrder(root);
 	printf("\n");
-	printf("ÖĞĞò±éÀú:\n");
+	printf("ä¸­åºéå†:\n");
 	order(root);
 	printf("\n");
-	//printf("É¾³ı½Úµã10:\n");
+	//printf("åˆ é™¤èŠ‚ç‚¹10:\n");
 	//deleteNode(&root,10);
-	//printf("É¾³ı½Úµã8:\n");
+	//printf("åˆ é™¤èŠ‚ç‚¹8:\n");
 	//deleteNode(&root,8);
-	printf("É¾³ı½Úµã3:%s\n",isBalance(root)?"¶ş²æËÑË÷Ê÷±£³ÖÆ½ºâ":"¶ş²æËÑË÷Ê÷²»Æ½ºâ");
-	printf("¸ù½ÚµãµÄÆ½ºâÒò×Ó:%d\n",root->bf);
 	deleteNode(&root,3);
-	printf("Ç°Ğò±éÀú:\n");
+	printf("åˆ é™¤èŠ‚ç‚¹3:%s\n",isBalance(root)?"äºŒå‰æœç´¢æ ‘ä¿æŒå¹³è¡¡":"äºŒå‰æœç´¢æ ‘ä¸å¹³è¡¡");
+	printf("æ ¹èŠ‚ç‚¹çš„å¹³è¡¡å› å­:%d\n",root->bf);
+	printf("å‰åºéå†:\n");
 	preOrder(root);
 	printf("\n");
-	printf("ÖĞĞò±éÀú:\n");
+	printf("ä¸­åºéå†:\n");
 	order(root);
 	printf("\n");
 	destoryTree(&root);
