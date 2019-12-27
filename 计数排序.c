@@ -28,9 +28,6 @@ int main()
     int arr[]= {13,15,9,0,11,10,9,6,6,18,7,3,5,11,18,3,2,7};
     int i,n=sizeof(arr)/sizeof(int);
     sort(arr,n);
-    for(i=0; i<n; i++)
-    {
-        printf("%d ",arr[i]);
-    }
+    for(i=0; i<n; i++)printf("%d ",arr[i]);
     printf("\n");
 }
