@@ -3,15 +3,15 @@
 #include<string.h>
 typedef int dataType;
 typedef char elemType;
-//¶ÓÁÐµÄÁ´Ê½´æ´¢
-//ÏÈ½øÏÈ³öFIFO
+//é˜Ÿåˆ—çš„é“¾å¼å­˜å‚¨
+//å…ˆè¿›å…ˆå‡ºFIFO
 struct Queue
 {
 	struct Queue* next;
 	void* elem;
 };
 typedef struct Queue queue;
-//¶¨Òå¶ÓÁÐµÄÍ·Î²Ö¸Õë
+//å®šä¹‰é˜Ÿåˆ—çš„å¤´å°¾æŒ‡é’ˆ
 typedef struct LinkQueue
 {
 	queue* front;
@@ -25,18 +25,18 @@ void enQueue(linkQueue** queue,void* elem);
 void deQueue(linkQueue** queue,void**);
 dataType queueEmpty(linkQueue* queue);
 dataType getQueueSize(linkQueue* queue);
-//³õÊ¼»¯¶ÓÁÐ
+//åˆå§‹åŒ–é˜Ÿåˆ—
 void initQueue(linkQueue** queue)
 {
 	*queue=(linkQueue*)malloc(sizeof(struct LinkQueue));
 	if(!(*queue))
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	(*queue)->front=(*queue)->rear=(struct Queue* )malloc(sizeof(struct Queue));
 }
-//¼ÆËã¶ÓÁÐ³¤¶È
+//è®¡ç®—é˜Ÿåˆ—é•¿åº¦
 dataType getQueueSize(linkQueue* lQueue)
 {
 	queue* q=lQueue->front,*p=lQueue->rear;
@@ -48,31 +48,31 @@ dataType getQueueSize(linkQueue* lQueue)
 	}
 	return length;
 }
-//ÅÐ¶Ï¶ÓÁÐÊÇ·ñÎª¿Õ
+//åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º
 dataType queueEmpty(linkQueue* queue)
 {
 	return queue->front == queue->rear;
 }
-//È¡¶Ó¶¥ÔªËØ
+//å–é˜Ÿé¡¶å…ƒç´ 
 void queueTop(linkQueue* queue, void** elem)
 {
 	*elem = queue->front->next->elem;
 }
-//ÔªËØÈë¶Ó²¢É¾³ý¶Ó¶¥Ö¸Õë
+//å…ƒç´ å…¥é˜Ÿå¹¶åˆ é™¤é˜Ÿé¡¶æŒ‡é’ˆ
 void enQueue(linkQueue** lQueue,void* elem)
 {
 	queue* q=NULL;
 	q=(queue* )malloc(sizeof(struct Queue));
 	if(!q)
 	{
-		printf("ÄÚ´æ·ÖÅäÊ§°Ü\n");
+		printf("å†…å­˜åˆ†é…å¤±è´¥\n");
 		exit(-1);
 	}
 	q->elem = elem;
 	(*lQueue)->rear->next=q;
 	(*lQueue)->rear=q;
 }
-//ÔªËØ³ö¶Ó²¢É¾³ý¶Ó¶¥Ö¸Õë
+//å…ƒç´ å‡ºé˜Ÿå¹¶åˆ é™¤é˜Ÿé¡¶æŒ‡é’ˆ
 void deQueue(linkQueue** lQueue,void** elem)
 {
 	queue* q=(*lQueue)->front;
@@ -85,7 +85,7 @@ void deQueue(linkQueue** lQueue,void** elem)
 	*elem=(*lQueue)->front->next->elem;
 	(*lQueue)->front->next=(*lQueue)->front->next->next;
 }
-//Ïú»Ù¶ÓÁÐÖ¸Õë
+//é”€æ¯é˜Ÿåˆ—æŒ‡é’ˆ
 void destoryQueue(linkQueue** lQueue)
 {
 	queue* q,*p = (*lQueue)->rear;
@@ -103,10 +103,7 @@ int main()
 	int i,nums[]={2,4,1,5,6,7,1,2,9},size = sizeof(nums)/sizeof(int);
 	void* elem;
 	initQueue(&queue);
-	for(i=0;i<size;i++)
-	{
-		enQueue(&queue,(void*)&nums[i]);
-	}
+	for(i=0;i<size;i++)enQueue(&queue,(void*)&nums[i]);
 	while(!queueEmpty(queue))
 	{
 		deQueue(&queue,&elem);
