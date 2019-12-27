@@ -24,7 +24,7 @@ void merge_sort(int** arr,int* array,int left,int right)
 	}
 	while(a<=middle)array[index++]=(*arr)[a++];
 	while(b<=right)array[index++]=(*arr)[b++];
-    for(i=0;i<=right-left;i++)(*arr)[left+i]=array[i];
+    	for(i=0;i<=right-left;i++)(*arr)[left+i]=array[i];
 }
 int main()
 {
@@ -33,17 +33,11 @@ int main()
 	int* temp=&arr[0];
 	printf("归并排序\n");
 	printf("原始数组:\n");
-	for(i=0;i<n;i++)
-	{
-		printf("%d ",temp[i]);
-	}
+	for(i=0;i<n;i++)printf("%d ",temp[i]);
 	printf("\n");
 	mergeSort(&temp,array,0,n-1);
 	printf("现数组:\n");
-	for(i=0;i<n;i++)
-	{
-		printf("%d ",temp[i]);
-	}
+	for(i=0;i<n;i++)printf("%d ",temp[i]);
 	printf("\n");
 	free(array);
 	return 0;
