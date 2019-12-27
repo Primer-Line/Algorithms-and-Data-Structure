@@ -7,28 +7,19 @@ int* quickSort(int* arr,int low,int high)
 		if(arr[i]>=arr[high])
 		{
 			temp=arr[i];
-			while(arr[index]>=arr[high]&&index>i)
-			{
-				index--;
-			}
+			while(arr[index]>=arr[high]&&index>i)index--;
 			arr[i]=arr[index];
 			arr[index]=temp;
 		}
 		if(index==i)
 		{
 			temp=arr[high];
-			for(j=high;j>index;j--)
-			{
-				arr[j]=arr[j-1];
-			}
+			for(j=high;j>index;j--)arr[j]=arr[j-1];
 			arr[index]=temp;
 			break;
 		}
 	}
-	if(low>=high)
-	{
-		return arr;
-	}
+	if(low>=high)return arr;
 	arr=quickSort(arr,0,index-1);
 	arr=quickSort(arr,index+1,high);
 	return arr;
@@ -39,10 +30,7 @@ int main()
 	int* a,i;
 	int high=sizeof(arr)/sizeof(int);
 	a=quickSort(arr,0,high-1);
-	for(i=0;i<high;i++)
-	{
-		printf("%d ",a[i]);
-	}
+	for(i=0;i<high;i++)printf("%d ",a[i]);
 	printf("\n");
 	return 0;
 }
