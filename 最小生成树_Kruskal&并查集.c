@@ -4,13 +4,13 @@
 typedef unsigned int UINT;
 typedef int dataType;
 typedef void* elemType;
-//±ßµÄ´æ´¢½á¹¹
+//è¾¹çš„å­˜å‚¨ç»“æ„
 typedef struct EDGE
 {
-	UINT weight;//È¨Öµ
-	UINT arc[2];//±ß
+	UINT weight;//æƒå€¼
+	UINT arc[2];//è¾¹
 }edge;
-//×÷Îª¿ìËÙÅÅĞòµÄº¯ÊıÖ¸Õë²ÎÊı
+//ä½œä¸ºå¿«é€Ÿæ’åºçš„å‡½æ•°æŒ‡é’ˆå‚æ•°
 int cmp(const void* a,const void* b)
 {
 	edge* e1 = (edge*)a,*e2 = (edge*)b;
@@ -18,7 +18,7 @@ int cmp(const void* a,const void* b)
 	if(e1->weight==e2->weight)return 0;
 	return 1;
 }
-//°´ÖÈºÏ²¢
+//æŒ‰ç§©åˆå¹¶
 void union_set(UINT* rank,UINT* parent,UINT a,UINT b)
 {
 	if(rank[a]>rank[b])parent[b] = a;
@@ -28,33 +28,27 @@ void union_set(UINT* rank,UINT* parent,UINT a,UINT b)
 		parent[a] = b;
 	}
 }
-//Â·¾¶Ñ¹Ëõ
+//è·¯å¾„å‹ç¼©
 UINT findParent(UINT* parent,UINT a)
 {
-	if(parent[a] != a)
-	{
-		a = findParent(parent,parent[a]);
-	}
+	if(parent[a] != a)a = findParent(parent,parent[a]);
 	return a;
 }
-//×îĞ¡Éú³ÉÊ÷KruskalËã·¨
+//æœ€å°ç”Ÿæˆæ ‘Kruskalç®—æ³•
 void miniSpanTree_Kruskal(dataType arc[][3],char* adjvex,UINT n,UINT adjvex_num)
 {
 	UINT i,count = 0,weight = 0,*rank = (UINT*)malloc(sizeof(UINT)*adjvex_num),*parent = (UINT*)malloc(sizeof(UINT)*adjvex_num),a,b;
 	edge* e = (edge*)malloc(sizeof(edge)*n),*edges = (edge*)malloc(sizeof(edge)*(adjvex_num-1));
 	if(!e||!rank||!parent||!edges)exit(-1);
 	memset(rank,0,sizeof(UINT)*adjvex_num);
-	for(i=0;i<adjvex_num;i++)
-	{
-		parent[i] = i;
-	}
+	for(i=0;i<adjvex_num;i++)parent[i] = i;
 	for(i=0;i<n;i++)
 	{
 		e[i].arc[0] = arc[i][0];
 		e[i].arc[1] = arc[i][1];
 		e[i].weight = arc[i][2];
 	}
-	qsort(e,n,sizeof(edge),cmp);//¿ìËÙÅÅĞò
+	qsort(e,n,sizeof(edge),cmp);//å¿«é€Ÿæ’åº
 	for(i=0;i<n;i++)
 	{
 		a = findParent(parent,e[i].arc[0]);
@@ -64,18 +58,18 @@ void miniSpanTree_Kruskal(dataType arc[][3],char* adjvex,UINT n,UINT adjvex_num)
 			edges[count].arc[0] = e[i].arc[0];
 			edges[count].arc[1] = e[i].arc[1];
 			edges[count++].weight = e[i].weight;
-			union_set(rank,parent,a,b);//ºÏ²¢
+			union_set(rank,parent,a,b);//åˆå¹¶
 		}
 		if(count == adjvex_num-1)break;
 	}
-	printf("×îĞ¡Éú³ÉÊ÷\n");
+	printf("æœ€å°ç”Ÿæˆæ ‘\n");
 	for(i=0;i<adjvex_num-1;i++)
 	{
 		weight+=edges[i].weight;
 		printf("%c->%c  %d\n",adjvex[edges[i].arc[0]],adjvex[edges[i].arc[1]],edges[i].weight);
 	}
-	printf("×îĞ¡´ú¼ÛÉú³ÉÊ÷µÄÈ¨Öµ:%d\n",weight);
-	//ÊÍ·ÅÖ¸Õë
+	printf("æœ€å°ä»£ä»·ç”Ÿæˆæ ‘çš„æƒå€¼:%d\n",weight);
+	//é‡Šæ”¾æŒ‡é’ˆ
 	free(e);
 	free(rank);
 	free(parent);
